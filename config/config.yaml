@@ -1,0 +1,44 @@
+ibkr:
+  host: "127.0.0.1"
+  port: 7497  # paper trading (7496 for live)
+  client_id: 1
+  reconnect_attempts: 5
+  reconnect_delay: 2.0  # exponential backoff base
+
+scenarios:
+  use_calendar: true
+  auto_detect_earnings: true
+  default_iv_model: "beta_weighted"
+
+risk_limits:
+  max_portfolio_loss: 0.15  # 15%
+  position_concentration: 0.25  # 25%
+  vega_limit: 10000
+  gamma_limit: 5000
+
+data:
+  cache_ttl: 1  # seconds
+  snapshot_interval: 300  # 5 minutes
+  database_path: "data/portfolio.db"
+  max_data_age: 60  # seconds before data is considered stale
+
+alerts:
+  enabled: true
+  email: null
+  console: true
+  log_file: "logs/alerts.log"
+
+performance:
+  batch_size: 100
+  max_positions: 500
+  update_interval: 60  # seconds
+
+risk_free_rate: 0.05  # 5% annual, update from FRED if needed
+
+market:
+  message_rate_limit: 50  # messages per second
+
+reporting:
+  export_path: "data/reports/"
+  formats: ["csv", "json"]
+  generate_pdf: false
